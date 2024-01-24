@@ -9,6 +9,7 @@ import Error from "./Components/Error";
 import Body from "./Components/Body";
 import Login from "./Components/Login";
 import RestaurantMenu from "./Components/RestaurantMenu";
+import ProfileClass from "./Components/ProfileClass";
 
 const router = createBrowserRouter([
   {
@@ -21,21 +22,27 @@ const router = createBrowserRouter([
         element: <Body />,
       },
       {
-        path: "/about",
+        path: "about",
         element: <About />,
+        children: [
+          {
+            path: "profile",
+            element: <ProfileClass />,
+          },
+        ],
       },
       {
-        path: "/contact",
+        path: "contact",
         element: <Contact />,
       },
       {
-        path: "/restaurant/:resId",
+        path: "restaurant/:resId",
         element: <RestaurantMenu />,
       },
     ],
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
 ]);

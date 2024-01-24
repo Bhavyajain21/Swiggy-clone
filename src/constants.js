@@ -25,3 +25,24 @@ export const MENU_ITEM_TYPE_KEY =
   "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory";
 export const RESTAURANT_TYPE_KEY =
   "type.googleapis.com/swiggy.presentation.food.v2.Restaurant";
+
+// Github - username
+export const Github_UserName = "Bhavyajain21";
+export const Github_Repository_Name = "Amazon-Clone";
+
+// Github API for User
+export const Github_API_User = "https://api.github.com/users/";
+
+// Social Media Links
+export const Linkedin_Link = "https://www.linkedin.com/in/bhavyajain21/";
+export const Twitter_Link = "https://twitter.com/bhavyajains21";
+export const Github_Link = "https://github.com/bhavyajain21";
+export const Email_Link = "mailto:rishikabhavya@gmail.com";
+
+// Github Authorization Token
+export const options = {
+  method: "GET",
+  headers: {
+    Authorization: "",
+  },
+};

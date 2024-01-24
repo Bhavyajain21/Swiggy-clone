@@ -32,6 +32,7 @@ const Body = () => {
     getRestaurants();
   }, []);
 
+  useEffect(() => {});
   async function getRestaurants() {
     // handle the error using try... catch
     try {
