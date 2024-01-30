@@ -1,110 +1,97 @@
 import RestaurantCard from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useState } from "react"; /* This is named export */
+import Shimmer from "./Shimmer"; /* This is default export */
 import { swiggy_api_URL } from "../constants";
-import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-import RestaurantMenu from "./RestaurantMenu";
-// Body Component for body section: It contain all restaurant cards
-// We are mapping restaurantList array and passing JSON data to RestaurantCard component as props with unique key as index
-const Body = () => {
-  // useState: To create a state variable, searchText is local state variable
-  const [searchText, setSearchText] = useState("");
-  const [restaurants, setRestaurants] = useState([]);
-  const [filterRestros, setFilterRestros] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
+import { filterData } from "../Utils/Helper";
+// For reusability or readability filterData function is added in Helper.js file of Utils folder
+import useResData from "../Hooks/useResData";
+// imported custom hook useResData which gives All Restaurant and  Filtered Restaurant data from swigy api
+import useOnline from "../Hooks/useOnline";
+// imported custom hook useOnline which checks user is online or not
+import UserOffline from "./UserOffline";
 
-  function filterData(searchText, restaurants) {
-    if (searchText.length === 0) {
+// Body Component for body section: It contain all restaurant cards
+const Body = () => {
+  // useState: To create a state variable, searchText, allRestaurants and filteredRestaurants is local state variable
+  const [searchText, setSearchText] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [allRestaurants, FilterRes] = useResData(swiggy_api_URL);
+  const [filteredRestaurants, setFilteredRestaurants] = useState(null);
+  const isOnline = useOnline();
+
+  // if user is not Online then return UserOffline component
+  if (!isOnline) {
+    return <UserOffline />;
+  }
+
+  // use searchData function and set condition if data is empty show error message
+  const searchData = (searchText, restaurants) => {
+    if (searchText !== "") {
+      const filteredData = filterData(searchText, restaurants);
+      setFilteredRestaurants(filteredData);
       setErrorMessage("");
-    }
-    const filterData = restaurants.filter((restaurant) =>
-      restaurant?.info?.name.toLowerCase().includes(searchText.toLowerCase())
-    );
-    if (filterData.length == 0) {
-      setErrorMessage("No matches restaurant found");
+      if (filteredData?.length === 0) {
+        setErrorMessage(
+          `Sorry, we couldn't find any results for "${searchText}"`
+        );
+      }
     } else {
       setErrorMessage("");
+      setFilteredRestaurants(restaurants);
     }
-    return filterData;
-  }
+  };
 
-  useEffect(() => {
-    getRestaurants();
-  }, []);
-
-  useEffect(() => {});
-  async function getRestaurants() {
-    // handle the error using try... catch
-    try {
-      const response = await fetch(swiggy_api_URL);
-      const json = await response.json();
-
-      // initialize checkJsonData() function to check Swiggy Restaurant data
-      async function checkJsonData(jsonData) {
-        for (let i = 0; i < jsonData?.data?.cards.length; i++) {
-          // initialize checkData for Swiggy Restaurant data
-          let checkData =
-            json?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle
-              ?.restaurants;
-
-          // if checkData is not undefined then return it
-          if (checkData !== undefined) {
-            return checkData;
-          }
-        }
-      }
-
-      // call the checkJsonData() function which return Swiggy Restaurant data
-      const resData = await checkJsonData(json);
-
-      // update the state variable restaurants with Swiggy API data
-      setRestaurants(resData);
-      setFilterRestros(resData);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // if allRestaurants are empty don't render restaurants cards
+  if (!allRestaurants) return null;
 
   return (
-    <>
+    <div className="body-container">
       <div className="search-container">
         <input
           type="text"
           className="search-input"
           placeholder="Search a restaurant you want..."
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}></input>
+          // update the state variable searchText when we typing in input box
+          onChange={(e) => {
+            setSearchText(e.target.value);
+            // when user will enter the data, it automatically called searchData function so it work same as when you click on Search button
+            searchData(e.target.value, allRestaurants);
+          }}
+        />
         <button
           className="search-btn"
           onClick={() => {
-            // filter the data
-            const data = filterData(searchText, restaurants);
-            // update the state of restaurants list
-            setFilterRestros(data);
+            // user click on button searchData function is called
+            searchData(searchText, allRestaurants);
           }}>
           Search
         </button>
       </div>
-
       {errorMessage && <div className="error-container">{errorMessage}</div>}
 
-      {restaurants.length == 0 ? (
+      {/* if restaurants data are fetched then display restaurants cards otherwise display Shimmer UI */}
+      {allRestaurants?.length === 0 && FilterRes?.length === 0 ? (
         <Shimmer />
       ) : (
         <div className="restaurant-list">
-          {filterRestros.map((restaurant) => {
-            return (
-              <Link to={"/restaurant/" + restaurant?.info?.id}>
-                <RestaurantCard
-                  key={restaurant?.info?.id}
-                  {...restaurant?.info}
-                />
-              </Link>
-            );
-          })}
+          {/* We are mapping restaurants array and passing JSON array data to RestaurantCard component as props with unique key as restaurant.data.id */}
+          {(filteredRestaurants === null ? FilterRes : filteredRestaurants).map(
+            (restaurant) => {
+              return (
+                <Link
+                  to={"/restaurant/" + restaurant?.info?.id}
+                  key={restaurant?.info?.id}>
+                  {/* if we click on any restaurant card it will redirect to that restaurant menu page */}
+                  <RestaurantCard {...restaurant?.info} />
+                </Link>
+              );
+            }
+          )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

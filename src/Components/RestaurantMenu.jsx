@@ -1,65 +1,36 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"; // import useParams for read `resId`
 import {
   swiggy_menu_api_URL,
-  RESTAURANT_TYPE_KEY,
   IMG_CDN_URL,
-  MENU_ITEM_TYPE_KEY,
   ITEM_IMG_CDN_URL,
+  MENU_ITEM_TYPE_KEY,
+  RESTAURANT_TYPE_KEY,
 } from "../constants";
 import { MenuShimmer } from "./Shimmer";
+import useResMenuData from "../Hooks/useResMenuData"; // imported custom hook useResMenuData which gives restaurant Menu data from swigy api
+import useOnline from "../Hooks/useOnline"; // imported custom hook useOnline which checks user is online or not
+import UserOffline from "./UserOffline";
+
 const RestaurantMenu = () => {
-  // call useParams and get value of restaurant id using object destructuring
-  const { resId } = useParams();
+  const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
+  const [restaurant, menuItems] = useResMenuData(
+    swiggy_menu_api_URL,
+    resId,
+    RESTAURANT_TYPE_KEY,
+    MENU_ITEM_TYPE_KEY
+  );
 
-  // call useState to store the api data in res
-  const [restaurant, setRestaurant] = useState(null);
-  const [menuItems, setMenuItems] = useState([]);
+  const isOnline = useOnline();
 
-  useEffect(() => {
-    // call getRestaurantInfo function so it fetch api data and set data in restaurant state variable
-    getRestaurantInfo();
-  }, []);
-
-  async function getRestaurantInfo() {
-    const response = await fetch(swiggy_menu_api_URL + resId);
-    const json = await response.json();
-
-    // Set restaurant data
-    const restaurantData =
-      json?.data?.cards
-        ?.map((x) => x?.card)
-        ?.find((x) => x?.card["@type"] === RESTAURANT_TYPE_KEY)?.card?.info ||
-      null;
-
-    setRestaurant(restaurantData);
-
-    // Set menu item data
-    const menuItemsData = json?.data?.cards
-      .find((x) => x.groupedCard)
-      .groupedCard?.cardGroupMap?.REGULAR?.cards?.map((x) => x.card?.card)
-      ?.filter((x) => x["@type"] == MENU_ITEM_TYPE_KEY)
-      ?.map((x) => x.itemCards)
-      ?.flat()
-      ?.map((x) => x.card?.info);
-
-    // filtering for uniqueness of data based on id
-    const uniqueMenuItems = [];
-    menuItemsData.forEach((item) => {
-      if (!uniqueMenuItems.find((x) => x?.id == item?.id)) {
-        uniqueMenuItems.push(item);
-      }
-    });
-    console.log(uniqueMenuItems);
-    setMenuItems(uniqueMenuItems);
+  // if user is not Online then return UserOffline component
+  if (!isOnline) {
+    return <UserOffline />;
   }
 
   return !restaurant ? (
     <MenuShimmer />
   ) : (
     <div className="restaurant-menu">
-      {/* Restaurant Name and Details */}
       <div className="restaurant-summary">
         <img
           className="restaurant-img"
@@ -90,7 +61,6 @@ const RestaurantMenu = () => {
         </div>
       </div>
 
-      {/* Restaurant Menu Items  */}
       <div className="restaurant-menu-content">
         <div className="menu-items-container">
           <div className="menu-title-wrap">
