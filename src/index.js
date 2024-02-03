@@ -12,8 +12,7 @@ import RestaurantMenu from "./Components/RestaurantMenu";
 import ProfileClass from "./Components/ProfileClass";
 import Test from "./Components/Test";
 import Shimmer from "./Components/Shimmer";
-
-const Instamart = lazy(() => import("./Components/Instamart"));
+const Instamart = lazy(() => import("./Components/Instamart/Instamart"));
 //Upon On Demand loading -> upon render -> suspend loading
 
 const router = createBrowserRouter([

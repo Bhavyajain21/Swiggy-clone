@@ -72,6 +72,7 @@ const Header = () => {
                 onClick={() => {
                   clearLocalStorage();
                   setIsLoggedin(false);
+                  navigate("/login");
                 }}>
                 Logout
                 <span
