@@ -6,8 +6,10 @@ const obj = [
   { number: "2nd", desc: "Pandey" },
   { number: "3rd", desc: "Naveen" },
 ];
-const AccordianBar = ({ index, show, setInd, number, desc }) => {
+const AccordianBar = ({ index, show, setInd, setShow, number, desc }) => {
+  console.log("Ok", show);
   const handleClick = () => {
+    setShow(show);
     setInd(index);
   };
   return (
@@ -24,7 +26,7 @@ const AccordianBar = ({ index, show, setInd, number, desc }) => {
 };
 
 const Instamart = () => {
-  const show = false;
+  const [show, setShow] = useState(false);
   const [ind, setInd] = useState();
 
   return (
@@ -33,10 +35,11 @@ const Instamart = () => {
         return (
           <AccordianBar
             index={index}
-            show={ind == index ? true : false}
+            show={ind == index ? !show : false}
             number={e.number}
             desc={e.desc}
             setInd={setInd}
+            setShow={setShow}
           />
         );
       })}
