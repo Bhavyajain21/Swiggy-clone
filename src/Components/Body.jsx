@@ -1,5 +1,5 @@
 import RestaurantCard from "./RestaurantCard";
-import { useState } from "react"; /* This is named export */
+import { useContext, useState } from "react"; /* This is named export */
 import Shimmer from "./Shimmer"; /* This is default export */
 import { swiggy_api_URL } from "../constants";
 import { Link } from "react-router-dom";
@@ -10,9 +10,14 @@ import useResData from "../Hooks/useResData";
 import useOnline from "../Hooks/useOnline";
 // imported custom hook useOnline which checks user is online or not
 import UserOffline from "./UserOffline";
+import UserContext from "../Utils/UserContext";
 
 // Body Component for body section: It contain all restaurant cards
 const Body = () => {
+  // const [user, setUser] = useState({
+  //   name: "Bhavya",
+  //   email: "rishikabhavya@gmail.com",
+  // });
   // useState: To create a state variable, searchText, allRestaurants and filteredRestaurants is local state variable
   const [searchText, setSearchText] = useState("");
   const [errorMessage, setErrorMessage] = useState("");

@@ -2,6 +2,7 @@ import { Component } from "react";
 import ProfileUserClass from "./ProfileUserClass";
 import ProfileRepoClass from "./ProfileRepoClass";
 import { Github_API_User, Github_UserName, options } from "../constants";
+import UserContext from "../Utils/UserContext";
 
 // Profileclass is class component
 class Profile extends Component {
@@ -42,6 +43,9 @@ class Profile extends Component {
           <ProfileUserClass data={userInfo} />
           {/* Passing props data (full json data) from parent to child */}
         </div>
+        <UserContext.Consumer>
+          {({ user }) => <h4>{user.name}</h4>}
+        </UserContext.Consumer>
         <div className="repo-container">
           <h1 className="repo-title">
             Food<span>Fire</span> App Repository

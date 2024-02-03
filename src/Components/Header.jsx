@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import useOnline from "../Hooks/useOnline";
 import useAuth from "../Hooks/useAuth";
 import useLocalStorage from "../Hooks/useLocalStorage";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import UserContext from "../Utils/UserContext";
 
 // Title component for display logo
 const Title = () => (
@@ -20,6 +21,8 @@ const Title = () => (
 
 // Header component for header section: Logo, Nav Items
 const Header = () => {
+  const { user, setUser } = useContext(UserContext);
+
   const navigate = useNavigate();
 
   // call custom hook useLocalStorage for getting localStorage value of user
@@ -36,11 +39,29 @@ const Header = () => {
 
   // call custom hook useOnline if user is online or not
   const isOnline = useOnline();
-
   return (
     <div className="header">
       <Title />
-
+      <input
+        type="text"
+        value={user.name}
+        onChange={(e) =>
+          setUser({
+            ...user,
+            name: e.target.value,
+          })
+        }
+      />
+      <input
+        type="email"
+        value={user.email}
+        onChange={(e) =>
+          setUser({
+            ...user,
+            email: e.target.value,
+          })
+        }
+      />
       {/* if user is logged in then display userName */}
       {isLoggedin && (
         <div className="user-name">Hi {getLocalStorage?.userName}!</div>
@@ -61,6 +82,7 @@ const Header = () => {
           <li>
             <Link to="/instamart">Instamart</Link>
           </li>
+          <li>{user.name}</li>
           <li>
             <i className="fa-solid fa-cart-shopping"></i>
           </li>
