@@ -6,6 +6,8 @@ import useAuth from "../Hooks/useAuth";
 import useLocalStorage from "../Hooks/useLocalStorage";
 import { useEffect, useContext } from "react";
 import UserContext from "../Utils/UserContext";
+import { useSelector } from "react-redux";
+import store from "../Utils/store";
 
 // Title component for display logo
 const Title = () => (
@@ -29,6 +31,10 @@ const Header = () => {
   const [getLocalStorage, , clearLocalStorage] = useLocalStorage("user");
   // call custom hook useAuth for user is loggedin or not
   const [isLoggedin, setIsLoggedin] = useAuth();
+
+  // accessing the redux store in the app
+  // we are subscribing the store.cart.items, which means eveytime store.cart.items the compoenent will render
+  const cartItems = useSelector((store) => store.cart.items);
 
   useEffect(() => {
     // if value of getLocalStorage is equal to null setIsLoggedin to false
@@ -84,7 +90,7 @@ const Header = () => {
           </li>
           <li>{user.name}</li>
           <li>
-            <i className="fa-solid fa-cart-shopping"></i>
+            <Link to="/cart">cart - {cartItems.length} items</Link>
           </li>
           <li>
             {/* use conditional rendering for login and logout */}

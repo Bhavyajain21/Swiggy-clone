@@ -12,6 +12,7 @@ import RestaurantMenu from "./Components/RestaurantMenu";
 import ProfileClass from "./Components/ProfileClass";
 import Test from "./Components/Test";
 import Shimmer from "./Components/Shimmer";
+import Cart from "./Components/Cart/Cart";
 const Instamart = lazy(() => import("./Components/Instamart/Instamart"));
 //Upon On Demand loading -> upon render -> suspend loading
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             <Instamart />
           </Suspense>
         ),
+      },
+      {
+        path: "cart",
+        element: <Cart />,
       },
     ],
   },
