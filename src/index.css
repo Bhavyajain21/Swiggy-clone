@@ -1414,3 +1414,12 @@ a {
 .margin-bottom{
   margin-bottom: 80px;
 }
+.reachout{
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.linkedin, .twitter, .instagram{
+  cursor: pointer;
+}
