@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./cart.css";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import store from "../../Utils/store";
 import { mapPricetoQuantity, removeItem } from "../../Utils/cartslice";
 import { IMG_CDN_URL, ITEM_IMG_CDN_URL } from "../../constants";
@@ -126,6 +127,9 @@ const Cart = () => {
           }).format(total)}
         </div>
       </div>
+      <Link to="/thankyou">
+        <div className="checkout">Checkout</div>
+      </Link>
     </div>
   );
 };

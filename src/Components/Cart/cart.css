@@ -77,3 +77,22 @@
 .empty-cart{
     margin-top: 100px;
 }
+.checkout{
+    display: inline-block;
+    border: 2px solid #ff9601;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+.checkout:hover{
+    background-color: #ff9601;
+    color: white;
+    cursor: pointer;
+}
+.thanks{
+    margin-top: 200px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #ff9601;
+    font-style: italic;
+}
