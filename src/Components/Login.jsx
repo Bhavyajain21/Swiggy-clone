@@ -27,6 +27,7 @@ const Login = () => {
   }, []);
 
   function handleNavigate(values) {
+    console.log(values);
     let index = values?.email.indexOf("@");
     let name = values?.email.slice(0, index);
 
@@ -53,7 +54,7 @@ const Login = () => {
       {/* Wrapping form inside formik tag and passing our schema to validationSchema prop */}
       <Formik
         validationSchema={schema}
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "abc@gmail.com", password: "" }}
         onSubmit={(values) => {
           // invoke handleNavigate function and pass input filed data
           handleNavigate(values);
@@ -72,6 +73,9 @@ const Login = () => {
               <form noValidate onSubmit={handleSubmit}>
                 <span>Login</span>
                 {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
+                <label className="email-label" for="email">
+                  Email
+                </label>
                 <input
                   type="email"
                   name="email"
@@ -87,6 +91,9 @@ const Login = () => {
                   {errors.email && touched.email && errors.email}
                 </p>
                 {/* input with passing formik parameters like handleChange, values, handleBlur to input properties */}
+                <label className="email-label" for="email">
+                  Password
+                </label>
                 <input
                   type="password"
                   name="password"

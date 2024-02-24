@@ -1,4 +1,79 @@
 .cart-container{
     margin-top: 100px;
+    margin-bottom: 50px;
+}
+.cartRow{
     display: flex;
+    text-align: left;
+    border-bottom: 1px solid #a8a6a6;
+    margin: 10px;
+    justify-content: space-between;
+    padding: 10px;
+    align-items: center;
+}
+.total{
+    text-align: right;
+    margin-right: 100px;
+}
+.left{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.cart-img-container{
+    width: 10%;
+}
+.img-cart{
+    width: 100%;
+    border-radius: 10px;
+}
+.foodName{
+    font-weight: bold;
+    font-size: 20px;
+    color:#ff9601;
+}
+.cart-item-desc{
+    margin-left: 20px;
+    width: 40%;
+}
+.foodDesc{
+    color: grey;
+    font-style: italic;
+    font-size: 14px;
+}
+.amount{
+    width:30%;
+    text-align:center
+}
+.cart-add-btn{
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border: 2px solid orange;
+    margin:10px
+}
+.items-number{
+    padding: 10px;
+    width: 40%;
+    text-align: center;
+}
+.subtotal{
+    font-weight: bold;
+    font-size: 36px;
+    color:#ff9601;
+}
+.total{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.money{
+    font-size: 24px;
+    color: rgb(105, 105, 105);
+    margin-left: 10px;
+}
+.empty-cart{
+    margin-top: 100px;
 }

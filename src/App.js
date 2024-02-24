@@ -22,7 +22,9 @@ function App() {
             setUser: setUser,
           }}>
           <Header />
-          <Outlet />
+          <div className="margin-bottom">
+            <Outlet />
+          </div>
           <Footer />
         </UserContext.Provider>
       </div>

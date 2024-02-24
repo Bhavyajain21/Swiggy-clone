@@ -8,11 +8,13 @@ import { useEffect, useContext } from "react";
 import UserContext from "../Utils/UserContext";
 import { useSelector } from "react-redux";
 import store from "../Utils/store";
+import { FaShoppingCart } from "react-icons/fa";
 
 // Title component for display logo
 const Title = () => (
   <Link to="/">
     <img
+      data-testid="logo"
       className="logo"
       src={FoodFireLogo}
       alt="Food Fire"
@@ -48,26 +50,6 @@ const Header = () => {
   return (
     <div className="header">
       <Title />
-      <input
-        type="text"
-        value={user.name}
-        onChange={(e) =>
-          setUser({
-            ...user,
-            name: e.target.value,
-          })
-        }
-      />
-      <input
-        type="email"
-        value={user.email}
-        onChange={(e) =>
-          setUser({
-            ...user,
-            email: e.target.value,
-          })
-        }
-      />
       {/* if user is logged in then display userName */}
       {isLoggedin && (
         <div className="user-name">Hi {getLocalStorage?.userName}!</div>
@@ -75,23 +57,28 @@ const Header = () => {
 
       <div className="nav-items">
         <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
+          <Link to="/" className="nav-items-li">
+            <li>Home</li>
+          </Link>
+          <Link to="/about" className="nav-items-li">
+            <li>About</li>
+          </Link>
 
-          <li>
-            <Link to="/contact">Contact</Link>
-          </li>
-          <li>
-            <Link to="/instamart">Instamart</Link>
-          </li>
-          <li>{user.name}</li>
-          <li>
-            <Link to="/cart">cart - {cartItems.length} items</Link>
-          </li>
+          <Link to="/contact" className="nav-items-li">
+            <li>Contact</li>
+          </Link>
+          <Link to="/instamart" className="nav-items-li">
+            <li>Instamart</li>
+          </Link>
+          {/* <li>{user.name}</li> */}
+          <Link to="/cart" className="nav-items-li" data-testid="cart">
+            <li className="inside">
+              <FaShoppingCart className="enlarge-cart" />
+              {cartItems.length > 0 ? (
+                <>&nbsp; - &nbsp;{cartItems.length}</>
+              ) : null}
+            </li>
+          </Link>
           <li>
             {/* use conditional rendering for login and logout */}
             {isLoggedin ? (
@@ -104,6 +91,7 @@ const Header = () => {
                 }}>
                 Logout
                 <span
+                  data-testid="online-status"
                   className={isOnline ? "login-btn-green" : "login-btn-red"}>
                   {" "}
                   ●
@@ -113,6 +101,7 @@ const Header = () => {
               <button className="login-btn" onClick={() => navigate("/login")}>
                 Login
                 <span
+                  data-testid="online-status"
                   className={isOnline ? "login-btn-green" : "login-btn-red"}>
                   {" "}
                   ●

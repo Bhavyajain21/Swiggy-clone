@@ -69,7 +69,20 @@ a {
   color: var(--dark-green);
 }
 
+
 /* nav items CSS start*/
+.nav-items-li{
+  margin-right: 15px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.nav-items-li:hover{
+  background-color: var(--orange);
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--white);
+}
 .nav-items > ul {
   list-style-type: none;
   display: flex;
@@ -77,11 +90,23 @@ a {
   align-items: center;
   justify-content: space-between;
 }
-
+.enlarge-cart{
+  font-size: 20px;
+}
 .nav-items > ul > li {
   padding: 10px;
 }
-
+.inside{
+  display: flex;
+  align-items: center;
+}
+.superscript{
+  position: absolute;
+  top: 5px; 
+  right: 20px;
+  z-index: 10;
+  color: black;
+}
 .nav-items > ul > li .fa-solid {
   padding-top: 15%;
 }
@@ -366,6 +391,7 @@ a {
   align-self: flex-start;
   overflow: hidden;
   height: auto;
+  text-align: left;
 }
 
 .item-title {
@@ -1019,16 +1045,16 @@ a {
 
 /* footer CSS Start*/
 .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 10px;
-  width: auto;
   text-align: center;
   background-color: var(--footer-bg-color);
   padding: 20px 10px 20px;
-  border-radius: 5px;
   box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.71);
 }
 
@@ -1344,4 +1370,47 @@ a {
   .profile-repo .profile-repo-items h3 a{
     font-size: small;
   }
+}
+.landing{
+  width: 100%;
+}
+.black{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 100px;
+  background: radial-gradient(50% 50% at 50% 50%,#121212 0,#000 100%);
+}
+.floatImg{
+}
+.cards{
+  display: flex;
+}
+.f1{
+  background: linear-gradient(180deg,#242424,#121212 65.62%);
+  padding: 50px;
+  border: 2px solid yellow;
+  margin: 10px;
+  margin-top: 0px;
+  border: 2px solid hsla(0,0%,12%,1);
+  border-radius: 12px;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.02),0 4px 6px rgba(0,0,0,.02),inset 0 0 0 6px #111;
+}
+.f1>.heading{
+  color: white;
+}
+.f1>.desc{
+  color: #888;
+}
+.email-label{
+  color: #4b6cb7;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+  display: block;
+  padding-bottom: 2px;
+}
+.margin-bottom{
+  margin-bottom: 80px;
 }

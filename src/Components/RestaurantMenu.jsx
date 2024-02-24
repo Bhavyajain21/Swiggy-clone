@@ -11,7 +11,7 @@ import useResMenuData from "../Hooks/useResMenuData"; // imported custom hook us
 import useOnline from "../Hooks/useOnline"; // imported custom hook useOnline which checks user is online or not
 import UserOffline from "./UserOffline";
 import { useDispatch } from "react-redux";
-import { addItem } from "../Utils/cartslice";
+import { addItem, mapPricetoQuantity } from "../Utils/cartslice";
 
 const RestaurantMenu = () => {
   const { resId } = useParams(); // call useParams and get value of restaurant id using object destructuring
@@ -19,8 +19,14 @@ const RestaurantMenu = () => {
   const dispatch = useDispatch();
 
   const addtoCart = (item) => {
-    console.log(item);
     dispatch(addItem(item));
+    dispatch(
+      mapPricetoQuantity({
+        id: item.id,
+        price: item.price ? item.price : 0,
+        quantity: 1,
+      })
+    );
   };
 
   const [restaurant, menuItems] = useResMenuData(
