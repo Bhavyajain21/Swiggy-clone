@@ -20,6 +20,7 @@ class Profile extends Component {
   async componentDidMount() {
     const response = await fetch(Github_API_User + Github_UserName); // access the props `name` from parent class `ProfileClass`
     const json = await response.json();
+    console.log(json);
     this.setState({
       userInfo: json,
     });
@@ -42,16 +43,6 @@ class Profile extends Component {
           <h1 className="profile-title">About Me</h1>
           <ProfileUserClass data={userInfo} />
           {/* Passing props data (full json data) from parent to child */}
-        </div>
-        <UserContext.Consumer>
-          {({ user }) => <h4>{user.name}</h4>}
-        </UserContext.Consumer>
-        <div className="repo-container">
-          <h1 className="repo-title">
-            Food<span>Fire</span> App Repository
-          </h1>
-          <ProfileRepoClass followers={userInfo.followers} />
-          {/* Passing props followers from parent to child */}
         </div>
       </div>
     );
