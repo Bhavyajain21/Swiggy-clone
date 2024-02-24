@@ -5,18 +5,6 @@ import { Link } from "react-router-dom";
 import store from "../../Utils/store";
 import { mapPricetoQuantity, removeItem } from "../../Utils/cartslice";
 import { IMG_CDN_URL, ITEM_IMG_CDN_URL } from "../../constants";
-const CartCard = ({ imageId, name, category, price }) => {
-  return (
-    <div className="card">
-      <img src={IMG_CDN_URL + imageId} />
-      <h2>{name}</h2>
-      <h6>{category}</h6>
-      <span>
-        <h4>{price / 100}</h4>
-      </span>
-    </div>
-  );
-};
 
 const CartRow = ({ item }) => {
   const dispatch = useDispatch();
@@ -25,7 +13,6 @@ const CartRow = ({ item }) => {
   const [qty, setQty] = useState(1);
 
   const handleInc = () => {
-    setQty(qty + 1);
     dispatch(
       mapPricetoQuantity({
         id: item.id,
@@ -33,10 +20,10 @@ const CartRow = ({ item }) => {
         quantity: qty + 1,
       })
     );
+    setQty(qty + 1);
   };
 
   const handleDec = () => {
-    setQty(qty - 1);
     dispatch(
       mapPricetoQuantity({
         id: item.id,
@@ -44,13 +31,18 @@ const CartRow = ({ item }) => {
         quantity: qty - 1,
       })
     );
+    if (qty - 1 == 0) {
+      dispatch(removeItem(item.id));
+    } else {
+      setQty(qty - 1);
+    }
   };
 
-  useEffect(() => {
-    if (qty == 0) {
-      dispatch(removeItem(item.id));
-    }
-  }, [qty]);
+  // useEffect(() => {
+  //   if (qty == 0) {
+  //     dispatch(removeItem(item.id));
+  //   }
+  // }, [qty]);
 
   return (
     <div className="cartRow">
@@ -80,12 +72,7 @@ const CartRow = ({ item }) => {
           <button onClick={handleDec} className="cart-add-btn">
             -
           </button>
-          <input
-            className="items-number"
-            type="text"
-            value={qty}
-            onChange={(e) => setQty(e.target.value)}
-          />
+          <input className="items-number" type="text" value={qty} />
           <button onClick={handleInc} className="cart-add-btn">
             +
           </button>

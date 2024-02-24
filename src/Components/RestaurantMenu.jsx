@@ -19,6 +19,7 @@ const RestaurantMenu = () => {
   const dispatch = useDispatch();
 
   const addtoCart = (item) => {
+    console.log(item);
     dispatch(addItem(item));
     dispatch(
       mapPricetoQuantity({
