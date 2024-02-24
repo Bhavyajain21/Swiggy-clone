@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Formik } from "formik"; // import Formik from formik
 import * as Yup from "yup"; // import Yup from yup
 import { useNavigate } from "react-router-dom";
-import useLocalStorage from "../Hooks/useLocalStorage";
+import useLocalStorage from "../../Hooks/useLocalStorage";
 
 // create a schema for Email and Password validation
 const schema = Yup.object().shape({

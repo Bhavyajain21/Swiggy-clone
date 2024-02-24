@@ -1,5 +1,5 @@
 import { useState } from "react";
-import contact from "../Images/Contact-Us.png";
+import contact from "../../Images/Contact-Us.png";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";

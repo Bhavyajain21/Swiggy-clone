@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./Components/Header";
-import Body from "./Components/Body";
+import Body from "./Components/Home/Body";
 import Footer from "./Components/Footer";
 import { Outlet } from "react-router-dom";
 import { useState } from "react";

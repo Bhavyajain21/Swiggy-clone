@@ -1,8 +1,8 @@
 import { Component } from "react";
 import ProfileUserClass from "./ProfileUserClass";
 import ProfileRepoClass from "./ProfileRepoClass";
-import { Github_API_User, Github_UserName, options } from "../constants";
-import UserContext from "../Utils/UserContext";
+import { Github_API_User, Github_UserName, options } from "../../constants";
+import UserContext from "../../Utils/UserContext";
 
 // Profileclass is class component
 class Profile extends Component {

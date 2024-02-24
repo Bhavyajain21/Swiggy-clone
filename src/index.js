@@ -3,17 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import About from "./Components/About";
-import Contact from "./Components/Contact";
-import Error from "./Components/Error";
-import Body from "./Components/Body";
-import Login from "./Components/Login";
-import RestaurantMenu from "./Components/RestaurantMenu";
-import ProfileClass from "./Components/ProfileClass";
-import Test from "./Components/Test";
-import Shimmer from "./Components/Shimmer";
+import About from "./Components/AboutUs/About";
+import Contact from "./Components/ContactUs/Contact";
+import Error from "./Components/HelperComponents/Error";
+import Body from "./Components/Home/Body";
+import Login from "./Components/AuthPages/Login";
+import RestaurantMenu from "./Components/RestaurantPages/RestaurantMenu";
+import ProfileClass from "./Components/AboutUs/ProfileClass";
+import Shimmer from "./Components/HelperComponents/Shimmer";
 import Cart from "./Components/Cart/Cart";
-import ThankYou from "./Components/ThankYou";
+import ThankYou from "./Components/HelperComponents/ThankYou";
 
 const Instamart = lazy(() => import("./Components/Instamart/Instamart"));
 //Upon On Demand loading -> upon render -> suspend loading
@@ -67,10 +66,6 @@ const router = createBrowserRouter([
   {
     path: "login",
     element: <Login />,
-  },
-  {
-    path: "test",
-    element: <Test />,
   },
 ]);
 

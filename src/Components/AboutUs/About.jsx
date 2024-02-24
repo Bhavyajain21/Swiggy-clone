@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import food from "../Images/burger-image.png";
+import food from "../../Images/burger-image.png";
 
 const About = () => {
   const [show, setShow] = useState(false);

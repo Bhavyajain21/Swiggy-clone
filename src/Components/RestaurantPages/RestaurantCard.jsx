@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { IMG_CDN_URL } from "../constants";
-import UserContext from "../Utils/UserContext";
+import { IMG_CDN_URL } from "../../constants";
+import UserContext from "../../Utils/UserContext";
 
 // Restaurant card component: Image, name, cuisine
 const RestaurantCard = ({
@@ -27,7 +27,6 @@ const RestaurantCard = ({
           <i className="fa-solid fa-star"></i>
           {avgRating}
         </h4>
-        <h4>{user.email}</h4>
         <h4>{lastMileTravelString}</h4>
         <h4>{costForTwoString}</h4>
       </span>
