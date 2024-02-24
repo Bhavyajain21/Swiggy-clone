@@ -13,6 +13,10 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
     },
+    removeItem: (state, action) => {
+      const arr = state.items.filter((item) => item.id != action.payload);
+      state.items = arr;
+    },
     mapPricetoQuantity: (state, action) => {
       let arr = state.itemQuantity;
       let updated = false;
@@ -28,5 +32,6 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addItem, clearCart, mapPricetoQuantity } = cartSlice.actions;
+export const { addItem, clearCart, mapPricetoQuantity, removeItem } =
+  cartSlice.actions;
 export default cartSlice.reducer;

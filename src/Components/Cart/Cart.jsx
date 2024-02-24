@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./cart.css";
 import { useDispatch, useSelector } from "react-redux";
 import store from "../../Utils/store";
-import { mapPricetoQuantity } from "../../Utils/cartslice";
+import { mapPricetoQuantity, removeItem } from "../../Utils/cartslice";
 import { IMG_CDN_URL, ITEM_IMG_CDN_URL } from "../../constants";
 const CartCard = ({ imageId, name, category, price }) => {
   return (
@@ -20,6 +20,8 @@ const CartCard = ({ imageId, name, category, price }) => {
 const CartRow = ({ item }) => {
   const dispatch = useDispatch();
   const { name, description, price, imageId } = item;
+
+  const [qty, setQty] = useState(1);
 
   const handleInc = () => {
     setQty(qty + 1);
@@ -42,7 +44,12 @@ const CartRow = ({ item }) => {
       })
     );
   };
-  const [qty, setQty] = useState(1);
+
+  useEffect(() => {
+    if (qty == 0) {
+      dispatch(removeItem(item.id));
+    }
+  }, [qty]);
 
   return (
     <div className="cartRow">
@@ -93,13 +100,12 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    console.log(cartItemsQuantity);
     let init = 0;
     cartItemsQuantity.forEach((element) => {
       init += (element.price * element.quantity) / 100;
     });
     setTotal(init);
-  }, [cartItemsQuantity]);
+  }, [cartItems, cartItemsQuantity]);
 
   if (cartItems.length == 0)
     return <h1 className="empty-cart">Cart is Empty!</h1>;
