@@ -1423,3 +1423,11 @@ a {
 .linkedin, .twitter, .instagram{
   cursor: pointer;
 }
+.disable-add-btn{
+  padding: 10px 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(0, 137, 53);
+  color: white;
+}

@@ -10,7 +10,7 @@ import { MenuShimmer } from "./Shimmer";
 import useResMenuData from "../Hooks/useResMenuData"; // imported custom hook useResMenuData which gives restaurant Menu data from swigy api
 import useOnline from "../Hooks/useOnline"; // imported custom hook useOnline which checks user is online or not
 import UserOffline from "./UserOffline";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItem, mapPricetoQuantity } from "../Utils/cartslice";
 
 const RestaurantMenu = () => {
@@ -18,8 +18,9 @@ const RestaurantMenu = () => {
 
   const dispatch = useDispatch();
 
+  const cartItems = useSelector((store) => store.cart.items);
+
   const addtoCart = (item) => {
-    console.log(item);
     dispatch(addItem(item));
     dispatch(
       mapPricetoQuantity({
@@ -107,9 +108,19 @@ const RestaurantMenu = () => {
                       alt={item?.name}
                     />
                   )}
-                  <button onClick={() => addtoCart(item)} className="add-btn">
-                    {" "}
-                    ADD +
+                  <button
+                    disabled={
+                      cartItems.findIndex((obj) => obj.id === item.id) != -1
+                    }
+                    onClick={() => addtoCart(item)}
+                    className={
+                      cartItems.findIndex((obj) => obj.id === item.id) != -1
+                        ? `disable-add-btn`
+                        : `add-btn`
+                    }>
+                    {cartItems.findIndex((obj) => obj.id === item.id) != -1
+                      ? "Added to cart"
+                      : "ADD +"}
                   </button>
                 </div>
               </div>

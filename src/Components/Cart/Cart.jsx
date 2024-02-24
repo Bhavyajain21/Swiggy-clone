@@ -38,11 +38,16 @@ const CartRow = ({ item }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (qty == 0) {
-  //     dispatch(removeItem(item.id));
-  //   }
-  // }, [qty]);
+  const handleInputChange = (e) => {
+    setQty(e.target.value);
+    dispatch(
+      mapPricetoQuantity({
+        id: item.id,
+        price: item.price ? item.price : 0,
+        quantity: e.target.value,
+      })
+    );
+  };
 
   return (
     <div className="cartRow">
@@ -72,7 +77,12 @@ const CartRow = ({ item }) => {
           <button onClick={handleDec} className="cart-add-btn">
             -
           </button>
-          <input className="items-number" type="text" value={qty} />
+          <input
+            className="items-number"
+            type="text"
+            value={qty}
+            onChange={(e) => handleInputChange(e)}
+          />
           <button onClick={handleInc} className="cart-add-btn">
             +
           </button>
@@ -102,7 +112,7 @@ const Cart = () => {
     <div className="cart-container">
       <h1>Your Cart ({cartItems.length} items)</h1>
       {cartItems.map((item) => {
-        return <CartRow item={item} />;
+        return <CartRow key={item.id} item={item} />;
       })}
       <div className="total">
         <div className="subtotal">Total:</div>
