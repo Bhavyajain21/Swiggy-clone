@@ -229,6 +229,8 @@ a {
   padding: 10px;
   margin: 20px;
   cursor: pointer;
+  height: 240px;
+  text-align: left;
 }
 
 .card:hover {
@@ -1430,4 +1432,15 @@ a {
   border: none;
   background-color: rgb(0, 137, 53);
   color: white;
+}
+.no-outline{
+  border: none;
+  outline: none;
+  width: 40%;
+}
+.hide-counter{
+  display: none;
+}
+.show-counter{
+  display: inline-block;
 }

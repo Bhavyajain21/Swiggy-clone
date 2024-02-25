@@ -10,36 +10,39 @@ const CartRow = ({ item }) => {
   const dispatch = useDispatch();
   const { name, description, price, imageId } = item;
 
-  const [qty, setQty] = useState(1);
+  const val = useSelector((store) => store.cart.itemQuantity);
+  const cartItems = useSelector((store) => store.cart.items);
 
   const handleInc = () => {
     dispatch(
       mapPricetoQuantity({
         id: item.id,
         price: item.price ? item.price : 0,
-        quantity: qty + 1,
+        quantity:
+          val[cartItems.findIndex((obj) => obj.id === item.id)]?.quantity + 1,
       })
     );
-    setQty(qty + 1);
   };
 
   const handleDec = () => {
-    dispatch(
-      mapPricetoQuantity({
-        id: item.id,
-        price: item.price ? item.price : 0,
-        quantity: qty - 1,
-      })
-    );
-    if (qty - 1 == 0) {
+    if (
+      val[cartItems.findIndex((obj) => obj.id === item.id)]?.quantity - 1 ==
+      0
+    ) {
       dispatch(removeItem(item.id));
     } else {
-      setQty(qty - 1);
+      dispatch(
+        mapPricetoQuantity({
+          id: item.id,
+          price: item.price ? item.price : 0,
+          quantity:
+            val[cartItems.findIndex((obj) => obj.id === item.id)]?.quantity - 1,
+        })
+      );
     }
   };
 
   const handleInputChange = (e) => {
-    setQty(e.target.value);
     dispatch(
       mapPricetoQuantity({
         id: item.id,
@@ -80,7 +83,9 @@ const CartRow = ({ item }) => {
           <input
             className="items-number"
             type="text"
-            value={qty}
+            value={
+              val[cartItems.findIndex((obj) => obj.id === item.id)]?.quantity
+            }
             onChange={(e) => handleInputChange(e)}
           />
           <button onClick={handleInc} className="cart-add-btn">

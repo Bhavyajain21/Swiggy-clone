@@ -1,0 +1,19 @@
+.qty-menu-item{
+    border: none;
+    outline: none;
+    background: transparent;
+    display: flex;
+    justify-content: end;
+    padding: 0;
+}
+.cart-add-btn-menu-item{
+    padding: 5px 10px;
+}
+.items-number-menu-item{
+    padding: 5px 10px;
+    width: 50%;
+    text-align: center;
+}
+.menu-img-wrapper{
+    background: none !important;
+}

@@ -6,6 +6,7 @@ import {
   MENU_ITEM_TYPE_KEY,
   RESTAURANT_TYPE_KEY,
 } from "../../constants";
+import ItemQuantityMenuCard from "../Cart/ItemQuantityMenuCard";
 import { MenuShimmer } from "../HelperComponents/Shimmer";
 import useResMenuData from "../../Hooks/useResMenuData"; // imported custom hook useResMenuData which gives restaurant Menu data from swigy api
 import useOnline from "../../Hooks/useOnline"; // imported custom hook useOnline which checks user is online or not
@@ -108,20 +109,23 @@ const RestaurantMenu = () => {
                       alt={item?.name}
                     />
                   )}
-                  <button
-                    disabled={
-                      cartItems.findIndex((obj) => obj.id === item.id) != -1
-                    }
+                  <div
                     onClick={() => addtoCart(item)}
                     className={
                       cartItems.findIndex((obj) => obj.id === item.id) != -1
-                        ? `disable-add-btn`
+                        ? `hide-counter`
                         : `add-btn`
                     }>
-                    {cartItems.findIndex((obj) => obj.id === item.id) != -1
-                      ? "Added to cart"
-                      : "ADD +"}
-                  </button>
+                    {"ADD +"}
+                  </div>
+                  <div
+                    className={
+                      cartItems.findIndex((obj) => obj.id === item.id) != -1
+                        ? `show-counter`
+                        : "hide-counter"
+                    }>
+                    <ItemQuantityMenuCard item={item} />
+                  </div>
                 </div>
               </div>
             ))}

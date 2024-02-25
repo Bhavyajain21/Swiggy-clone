@@ -16,6 +16,11 @@ const cartSlice = createSlice({
     removeItem: (state, action) => {
       const arr = state.items.filter((item) => item.id != action.payload);
       state.items = arr;
+
+      const arr1 = state.itemQuantity.filter(
+        (item) => item.id != action.payload
+      );
+      state.itemQuantity = arr1;
     },
     mapPricetoQuantity: (state, action) => {
       let arr = state.itemQuantity;

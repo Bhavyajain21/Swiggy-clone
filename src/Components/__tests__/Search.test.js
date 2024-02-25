@@ -20,5 +20,4 @@ test("Search Results on home page", () => {
     </StaticRouter>
   );
   const searchBtn = body.getByTestId("search-btn");
-  console.log(searchBtn);
 });

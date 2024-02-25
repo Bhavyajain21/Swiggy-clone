@@ -27,7 +27,6 @@ const Login = () => {
   }, []);
 
   function handleNavigate(values) {
-    console.log(values);
     let index = values?.email.indexOf("@");
     let name = values?.email.slice(0, index);
 
